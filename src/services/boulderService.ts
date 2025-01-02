@@ -40,15 +40,19 @@ export const filteredBouldersByGrades = async (grades: []) => {
     filteredBouldersByGrades;
     let boulders;
     if (grades.length > 0) {
-      boulders = await Boulder.find({ grade: { $in: grades } });
+      boulders = await Boulder.find({ grade: { $in: grades } }).sort({
+        createdAt: -1,
+      });
     } else {
-      boulders = await Boulder.find();
+      boulders = await Boulder.find().sort({
+        createdAt: -1,
+      });
     }
     console.log("Lista boulder recuperata correttamente");
     return boulders;
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(`Errore salvataggio boulder: ${error.message}`);
+      throw new Error(`Errore recupero boulder: ${error.message}`);
     }
   }
 };
