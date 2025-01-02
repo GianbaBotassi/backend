@@ -26,6 +26,13 @@ export const saveBoulderDb = async (BoulderData: any) => {
       console.log("Nome boulder giá presente");
       throw new Error(`Nome boulder giá utilizzato`);
     }
+    const existingHoldsBoulder = await Boulder.findOne({
+      holds: BoulderData.holds,
+    });
+    if (existingHoldsBoulder) {
+      console.log("Boulder uguale giá presente");
+      throw new Error(`Boulder uguale giá presente`);
+    }
     const savedBoulder = await newBoulder.save();
     return savedBoulder;
   } catch (error) {
