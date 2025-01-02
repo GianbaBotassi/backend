@@ -42,7 +42,7 @@ export const saveBoulder = async (
     res.status(200).json(savedBoulder);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
+      res.status(409).json({ message: error.message });
     }
   }
 };
