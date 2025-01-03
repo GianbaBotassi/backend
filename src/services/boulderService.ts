@@ -23,14 +23,12 @@ export const saveBoulderDb = async (BoulderData: any) => {
     const newBoulder = new Boulder(BoulderData);
     const existingBoulder = await Boulder.findOne({ name: BoulderData.name });
     if (existingBoulder) {
-      console.log("Nome boulder giá presente");
       throw new Error(`Nome boulder giá utilizzato`);
     }
     const existingHoldsBoulder = await Boulder.findOne({
       holds: BoulderData.holds,
     });
     if (existingHoldsBoulder) {
-      console.log("Boulder uguale giá presente");
       throw new Error(`Boulder uguale giá presente`);
     }
     const savedBoulder = await newBoulder.save();
@@ -55,7 +53,6 @@ export const filteredBouldersByGrades = async (grades: []) => {
         createdAt: -1,
       });
     }
-    console.log("Lista boulder recuperata correttamente");
     return boulders;
   } catch (error) {
     if (error instanceof Error) {
